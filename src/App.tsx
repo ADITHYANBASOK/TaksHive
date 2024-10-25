@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusCircle, Search, SlidersHorizontal } from 'lucide-react';
 import TaskList from './components/TaskList';
 import FilterSort from './components/FilterSort';
@@ -38,9 +38,9 @@ function App() {
   const filteredTasks = tasks.filter(task => {
     return (
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (filter.status === 'all' || 
-       (filter.status === 'completed' && task.completed) || 
-       (filter.status === 'active' && !task.completed)) &&
+      (filter.status === 'all' ||
+        (filter.status === 'completed' && task.completed) ||
+        (filter.status === 'active' && !task.completed)) &&
       (filter.priority === 'all' || task.priority === filter.priority) &&
       (filter.category === 'all' || task.category === filter.category)
     );
@@ -58,25 +58,28 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200 flex flex-col items-center p-8">
-      <div className="w-10/12 bg-white rounded-lg shadow-xl overflow-hidden">
+      <div className="w-full sm:w-10/12 bg-white rounded-lg shadow-xl overflow-hidden">
         <header className="bg-indigo-600 text-white p-6">
           <h1 className="text-3xl font-bold">TaskHive</h1>
           <p className="mt-2 text-indigo-200">Organize your tasks in one hive with style and simplicity.</p>
         </header>
-        
+
         <main className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
+            {/* Search Box */}
+            <div className="relative w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Search tasks..."
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
             </div>
-            <div className="flex space-x-4">
+
+            {/* Buttons */}
+            <div className="flex space-x-4 justify-center sm:justify-start">
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className="flex items-center px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 transition duration-300"
@@ -96,6 +99,7 @@ function App() {
               </button>
             </div>
           </div>
+
 
           {showFilters && (
             <FilterSort
